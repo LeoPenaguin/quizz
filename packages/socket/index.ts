@@ -1,15 +1,19 @@
-import { io } from "socket.io-client";
+import io from "socket.io-client";
+import { type User } from "@firebase/auth";
+class Socket {
+  socket;
 
-const socket = io("http://localhost:3000");
+  constructor() {
+    this.socket = io("ws://localhost:3000");
+  }
 
-socket.on("counter", function (count) {
-  console.log(count);
-});
+  joinLobby = (user: User, lobbyCode = null) => {
+    this.socket.emit("join-lobby", { user, lobbyCode });
+  };
 
-socket.on("connect", () => {
-  console.log(socket.id); // x8WIv7-mJelg7on_ALbx
-});
+  sendAnswer = (user: User, answer) => {
+    this.socket.emit("send-answer", { user, answer });
+  };
+}
 
-socket.on("disconnect", () => {
-  console.log(socket.id); // undefined
-});
+export default new Socket();

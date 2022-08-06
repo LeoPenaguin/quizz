@@ -1,7 +1,8 @@
 import { initializeApp, type FirebaseApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { Firestore, getFirestore } from "firebase/firestore";
 
-class Auth {
+class GoogleFirebase {
   firebaseApp: FirebaseApp;
   firebaseConfig = {
     apiKey: "AIzaSyBPbgEMgHny25kToCV8Vhpr4m3ImMpUjHM",
@@ -19,13 +20,17 @@ class Auth {
     this.firebaseApp = initializeApp(this.firebaseConfig);
   }
 
-  getFirebaseApp() {
+  getApp() {
     return this.firebaseApp;
   }
 
-  getFirebaseAuth() {
+  getAuth() {
     return getAuth(this.firebaseApp);
+  }
+
+  getFirestore(): Firestore {
+    return getFirestore(this.firebaseApp);
   }
 }
 
-export default new Auth();
+export default new GoogleFirebase();
