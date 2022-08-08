@@ -7,28 +7,32 @@ const userStore = useUserStore()
 const router = useRouter()
 
 const loginWithGoogle = () => {
-    userStore.googleLogin().then(() => {
-        router.push({ path: '/' })
-    })
+  userStore.googleLogin().then(() => {
+    goBack()
+  })
 }
 
 const loginWithTwitter = () => {
-    userStore.twitterLogin().then(() => {
-        router.push({ path: '/' })
-    })
+  userStore.twitterLogin().then(() => {
+    goBack()
+  })
+}
+
+const goBack = () => {
+  router.push({ path: '/' })
 }
 </script>
 
 <template>
-    <div class="auth">
-        <RouterLink to="/">Quit</RouterLink>
-        <h1>Auth</h1>
+  <div class="auth">
+    <MoleculeButton @clicked="goBack()">Quit</MoleculeButton>
+    <h1>Auth</h1>
 
-        <div>
-            <MoleculeButton @clicked="loginWithGoogle()">Google</MoleculeButton>
-            <MoleculeButton @clicked="loginWithTwitter()">Twitter</MoleculeButton>
-        </div>
-
-        <RouterView />
+    <div>
+      <MoleculeButton @clicked="loginWithGoogle()">Google</MoleculeButton>
+      <MoleculeButton @clicked="loginWithTwitter()">Twitter</MoleculeButton>
     </div>
+
+    <RouterView />
+  </div>
 </template>

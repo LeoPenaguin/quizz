@@ -1,31 +1,44 @@
 <script lang="ts" setup>
 import type { PropType } from 'vue'
 import type { Question } from '@packages/typings'
+import MoleculeButton from './MoleculeButton.vue'
 
-const emit = defineEmits(['clicked'])
 const props = defineProps({
-    question: {
-        type: Object as PropType<Question>,
-        required: true,
-    },
+  question: {
+    type: Object as PropType<Question>,
+    required: true,
+  },
 })
 
-const clicked = () => emit('clicked')
+const onAnswerClicked = (choice: any) => {
+  alert(choice)
+}
 </script>
 
 <template>
-    <div class="question-card" @click="clicked">
-        <div class="question-card__text">
-            {{ props.question.text }}
-        </div>
+  <div class="question-card">
+    <div class="question-card__text">
+      {{ props.question.text }}
     </div>
+    <div class="question-card__choices">
+      <div v-bind:key="choice.text" v-for="choice in props.question.choices">
+        <MoleculeButton @clicked="onAnswerClicked(choice)">{{ choice.text }}</MoleculeButton>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style lang="scss" scoped>
-.user-item {
-    background: rgb(255, 255, 255);
-    padding: $space1;
-    border-radius: $space1;
-    color: rgb(0, 0, 0);
+.question-card {
+  padding: $space-1;
+  border-radius: $space-1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  &__text {
+    font-size: 1.5rem;
+    margin: $space-2 $space-1;
+  }
 }
 </style>

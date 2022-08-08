@@ -1,0 +1,22 @@
+{
+    "root": true,
+    "env": {
+      "browser": true,
+      "node": true
+    },
+    "parser": "vue-eslint-parser",
+    "extends": [
+      "plugin:vue/vue3-essential",
+      "eslint:recommended",
+      "@vue/eslint-config-typescript/recommended",
+      "@vue/eslint-config-prettier"
+    ],
+    "settings": {
+      "import/resolver": {
+        "alias": {
+          "map": [["@", "./src/"]],
+          "extensions": [".ts", ".vue"]
+        }
+      }
+    }
+}
